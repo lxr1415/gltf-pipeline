@@ -34,6 +34,9 @@ function fileDisplay(currentPath, currentOutPath) {
 
 		console.log('---------');
 		console.log('读取目标： ', filedir);
+		if (!fs.existsSync(currentOutPath)) {
+			fs.mkdirSync(currentOutPath);
+		}
 		if (stats.isFile()) {
 			// 读取文件内容
 			compress(filedir, filename, currentOutPath);
@@ -80,5 +83,6 @@ function emptyDir(dirPath) {
 		} else if (stats.isDirectory()) {
 			emptyDir(pathname);
 		}
+		fs.unlinkSync(dirPath);
 	});
 }
